@@ -4,9 +4,7 @@ const path = require("path");
 const { InjectManifest } = require("workbox-webpack-plugin");
 
 // TODO: Add and configure workbox plugins for a service worker and manifest file.
-const WorkBoxPlugin = require("workbox-webpack-plugin");
 // TODO: Add CSS loaders and babel to webpack.
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = () => {
   return {
@@ -22,18 +20,17 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: "./src/index.html",
-        title: "J.A.T.E.",
+        title: "jate",
       }),
       new InjectManifest({
         swSrc: "./src-sw.js",
         swDest: "sw.js",
       }),
-      new MiniCssExtractPlugin(),
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
         name: "Just Another Text Editor",
-        short_name: "J.A.T.E.",
+        short_name: "jate",
         description: "A simple text editor.",
         background_color: "#9FAF90",
         theme_color: "#79B9AE",
@@ -41,9 +38,8 @@ module.exports = () => {
         publicPath: "/",
         icons: [
           {
-            src: path.resolve("src/assets/icon.png"),
+            src: path.resolve('src/images/logo.png'),
             sizes: [96, 128, 192, 256, 384, 512],
-            destination: path.join("assets", "icons"),
           },
         ],
       }),
@@ -55,7 +51,7 @@ module.exports = () => {
           use: ["style-loader", "css-loader"],
         },
         {
-          test: /\.js$/,
+          test: /\.m?js$/,
           exclude: /node_modules/,
           use: {
             loader: "babel-loader",
